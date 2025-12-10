@@ -106,7 +106,11 @@ public class HospitalService {
             hospitalDepartmentRepository.save(hd);
         }
     }
-
+    // HospitalService.java 안에 있어야 함
+    public Hospital findById(Long id) {
+        return hospitalRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 병원이 없습니다."));
+    }
     // 병원 정보 수정
     @Transactional
     public Hospital updateHospital(Long hosId, HosUpdateDto dto) {

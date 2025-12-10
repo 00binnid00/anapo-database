@@ -17,11 +17,28 @@ import java.util.Map;
 @RestController
 @RequestMapping("/hospitals")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000") // ✅ 1. React 연결 허용 (필수!)
 public class HospitalController {
 
     private final HospitalService hospitalService;
     private final HospitalSearchService hospitalSearchService;
 
+    // ✅ 2. [추가됨] 병원 상세 정보 조회 (ID로 찾기)
+    // 프론트엔드 예약 페이지에서 병원 이름을 불러올 때 사용됩니다.
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getHospitalDetail(@PathVariable Long id) {
+        try {
+            // Service 파일에 findById 메서드가 있어야 작동합니다.
+            Hospital hospital = hospitalService.findById(id);
+            return ResponseEntity.ok(hospital);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("병원 정보를 찾을 수 없습니다.");
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // 👇 기존 코드 (그대로 유지)
+    // -------------------------------------------------------------------------
 
     // 병원 정보 등록
     @PostMapping
@@ -56,8 +73,6 @@ public class HospitalController {
         );
     }
 
-/*------------------------------------------------------------------------------------------*/
-
     // 병원 진료과목 추가
     @PostMapping("/{hosId}/departments")
     public ResponseEntity<?> addDepartmentsToHospital(
@@ -74,15 +89,11 @@ public class HospitalController {
         ));
     }
 
-/*------------------------------------------------------------------------------------------*/
-
     // 전체 병원 목록 조회
     @GetMapping
     public List<HospitalDto> getAllHospitals() {
         return hospitalService.getAllHospitals();
     }
-
-/*------------------------------------------------------------------------------------------*/
 
     // 병원 위도, 경도 구하기
     @GetMapping("/near")
