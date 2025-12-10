@@ -1,22 +1,21 @@
 package com.example.anapo.user.domain.hospital.entity;
 
+import com.example.anapo.user.enums.AccountStatus;
 import jakarta.persistence.*;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Collection;
 import java.util.Date;
 
 @Builder
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public final class Hospital {
+public class Hospital {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +42,9 @@ public final class Hospital {
     @Column(name = "hos_lng", nullable = false)
     private double hosLng;      // 경도
 
+    @Enumerated(EnumType.STRING)
+    private AccountStatus status;
+
     public Hospital(String hosName, String hosAddress, String hosNumber, String hosEmail,
                     String hosTime, double hosLat, double hosLng) {
         this.hosName = hosName;
@@ -64,5 +66,9 @@ public final class Hospital {
         if (hosNumber != null) this.hosNumber = hosNumber;
         if (hosLat != null) this.hosLat = hosLat;
         if (hosLng != null) this.hosLng = hosLng;
+    }
+
+    public void updateStatus(AccountStatus newStatus) {
+        this.status = newStatus;
     }
 }

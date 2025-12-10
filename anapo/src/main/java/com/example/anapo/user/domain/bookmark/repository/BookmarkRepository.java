@@ -14,4 +14,6 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 
     // 중복 저장 방지 (이미 즐겨찾기한 병원인지 체크)
     Optional<Bookmark> findByUserIdAndHospitalId(Long userId, Long hospitalId);
+
+    int countByHospital_Id(Long hospitalId);
 }

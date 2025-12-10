@@ -25,7 +25,7 @@ public class HospitalStatsService {
         int newUsers = statsRepository.countNewUsers(hospitalId);
         int returnUsers = statsRepository.countReturn(hospitalId);
 
-        int bookmarkCount = bookmarkRepository.getBookmarkCount(hospitalId);
+        int bookmarkCount = bookmarkRepository.countByHospital_Id(hospitalId);;
 
         int total = statsRepository.totalReservations(hospitalId);
         int canceled = statsRepository.canceledReservations(hospitalId);

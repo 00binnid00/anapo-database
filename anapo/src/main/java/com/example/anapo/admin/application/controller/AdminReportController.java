@@ -3,6 +3,7 @@ package com.example.anapo.admin.application.controller;
 import com.example.anapo.admin.application.service.ReportActionService;
 import com.example.anapo.user.application.report.dto.ReportResponseDto;
 import com.example.anapo.user.domain.report.repository.ReportRepository;
+import com.example.anapo.admin.application.dto.ReportProcessDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

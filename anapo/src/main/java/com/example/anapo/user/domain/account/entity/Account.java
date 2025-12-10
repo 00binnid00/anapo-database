@@ -40,9 +40,9 @@ public class Account {
     @Column(nullable = false)
     private String sex;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @Builder.Default
     private AccountStatus status = AccountStatus.ACTIVE;
 
     public Account(String userPassword, String userName, String userId, @NotEmpty(message = "전화번호는 필수항목입니다.") @Pattern(regexp = "\\d{10,11}", message = "전화번호 형식은 01012345678이어야 합니다.") String userNumber, String birth, String sex) {
@@ -52,5 +52,7 @@ public class Account {
         this.userNumber = userNumber;
         this.birth = birth;
         this.sex = sex;
+
+        this.status = AccountStatus.ACTIVE;
     }
 }

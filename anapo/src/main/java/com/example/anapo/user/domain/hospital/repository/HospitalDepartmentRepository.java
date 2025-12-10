@@ -10,11 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HospitalDepartmentRepository extends JpaRepository<HospitalDepartment, Long> {
-    List<Hospital> findByHosNameContaining(String name);
+    boolean existsByHospital_IdAndDepartment_DeptName(Long hospitalId, String deptName);
 
-    // 진료과 기준 병원 필터링
-    @Query("SELECT h FROM Hospital h " +
-            "JOIN HospitalDepartment hd ON h.id = hd.hospital.id " +
-            "WHERE hd.department.id = :departmentId")
-    List<Hospital> findByDepartment(@Param("departmentId") Long departmentId);
+    List<HospitalDepartment> findByHospitalId(Long hospitalId);
 }
